@@ -19,6 +19,7 @@ const Profile = () => {
             Authorization: `Bearer ${token}`,
           },
         });
+        console.log(token)
         setPosts(await response.json());
       } catch (e) {
         console.error(e);
@@ -32,9 +33,9 @@ const Profile = () => {
 
   return (
     <ul>
-      {posts.map((post, index) => {
+      {/* {posts.map((post, index) => {
         return <li key={index}>{post}</li>;
-      })}
+      })} */}
     </ul>
   );
 };
