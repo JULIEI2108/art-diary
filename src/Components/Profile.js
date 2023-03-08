@@ -24,6 +24,7 @@ const Profile = () => {
       } catch (e) {
         console.error(e);
       }
+        console.log(posts)
     })();
   }, [getAccessTokenSilently]);
 
