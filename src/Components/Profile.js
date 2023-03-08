@@ -20,11 +20,11 @@ const Profile = () => {
           },
         });
         console.log(token)
-        setPosts(await response.json());
+        const post =await response.json();
       } catch (e) {
         console.error(e);
       }
-        console.log(posts)
+        console.log(post)
     })();
   }, [getAccessTokenSilently]);
 
