@@ -12,7 +12,7 @@ const Auth0ProviderWithHistory = ({ children }) => {
     history.push(
       appState && appState.targetUrl
         ? appState.targetUrl
-        : (window.location.href = "http://localhost:3000")
+        : (window.location.href = "https://julie-test.d3pw6ogk003r9g.amplifyapp.com/")
     );
   };
 
