@@ -14,7 +14,7 @@ const Profile = () => {
             scope: 'read:posts', // Scope that exists for the API being called. You can create these through the Auth0 Management API or through the Auth0 Dashboard in the Permissions view of your API.
           }
         });
-        const response = await fetch('https://rbm7x5e9gl.execute-api.us-east-1.amazonaws.com/dev/items', {
+        const response = await fetch('https://rbm7x5e9gl.execute-api.us-east-1.amazonaws.com/dev/manageItems', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
