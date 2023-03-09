@@ -1,5 +1,5 @@
 import Axios from 'axios'
-const endpoint = process.env.APIGATEWAY_ENDPOINT
+const endpoint = process.env.REACT_APP_APIGATEWAY_ENDPOINT
 
 
 export async function publicItem(){
@@ -8,7 +8,8 @@ export async function publicItem(){
     return result.items
 }
 
-export async function deleteItem(token, itemId){
+export async function deleteItem(itemId){
+    var token = accessToken()
     await Axios.delete(`${endpoint}/manageItems/${itemId}`, {
         headers: {
           'Content-Type': 'application/json',
@@ -17,7 +18,7 @@ export async function deleteItem(token, itemId){
     })}
 
 
-export async function createItem(token, artist, itemname, description, type
+export async function createItem( artist, itemname, description, type
       ){const newItem={
         toek: token,
         artist: artist,
@@ -26,6 +27,7 @@ export async function createItem(token, artist, itemname, description, type
         type: type,
         public: false
       }
+      var token = accessToken()
         const response = await Axios.post(`${endpoint}/manageItems`,  JSON.stringify(newItem), {
           headers: {
             'Content-Type': 'application/json',
@@ -39,12 +41,13 @@ export async function createItem(token, artist, itemname, description, type
         await uploadFile(uploadUrl, file)
       }
 
-export async function updateItem(token, itemId, description, ifPublic, itemname){
+export async function updateItem(itemId, description, ifPublic, itemname){
         const updateRequest = {
             description:description,
             public: ifPublic,
             itemname: itemname
         }
+        var token = accessToken()
     await Axios.patch(`${endpoint}/manageItems/${itemId}`, JSON.stringify(updateRequest), {
       headers: {
         'Content-Type': 'application/json',
@@ -53,11 +56,9 @@ export async function updateItem(token, itemId, description, ifPublic, itemname)
     })
 }
 
-
     async function getUploadUrl(
-        token,
         itemId
-      ){
+      ){const token = accessToken()
         const response = await Axios.post(`${endpoint}/manageItems/${itemId}/attachment`, '', {
           headers: {
             'Content-Type': 'application/json',
@@ -67,8 +68,21 @@ export async function updateItem(token, itemId, description, ifPublic, itemname)
         return response.data.uploadUrl
       }
       
-      async function uploadFile(uploadUrl, file) {
+    async function uploadFile(uploadUrl, file) {
         console.log(uploadUrl)
         await Axios.put(uploadUrl, file)
       }
       
+
+    async function accessToken(){
+      try {
+        const token = await getAccessTokenSilently({
+          authorizationParams: {
+            audience: 'https://rbm7x5e9gl.execute-api.us-east-1.amazonaws.com/dev', // Value in Identifier field for the API being called.
+            scope: 'read:posts', // Scope that exists for the API being called. You can create these through the Auth0 Management API or through the Auth0 Dashboard in the Permissions view of your API.
+            }
+          }
+        )      
+        } catch (e) {
+        console.error(e);
+      }}
