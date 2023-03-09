@@ -1,5 +1,7 @@
 import Axios from 'axios'
+import { useAuth0 } from '@auth0/auth0-react';
 const endpoint = process.env.REACT_APP_APIGATEWAY_ENDPOINT
+const { getAccessTokenSilently } = useAuth0();
 
 
 export async function publicItem(){
